@@ -213,7 +213,9 @@ export class CartService {
     //   select(fromSelector.getVouchers),
     //   tap(vouchersState => console.log(JSON.stringify(vouchersState)))
     // );
-
+    // this.store.pipe(select(fromSelector.getVouchers)).subscribe(a => {
+    //   console.log(a);
+    // });
     return this.store.pipe(select(fromSelector.getVouchers));
   }
 

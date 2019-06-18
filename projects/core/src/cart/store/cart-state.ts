@@ -1,3 +1,4 @@
+import { Voucher } from '../../model/cart.model';
 import { OrderEntry } from '../../model/order.model';
 import { LoaderState } from '../../state/utils/loader/loader-state';
 
@@ -17,5 +18,5 @@ export interface CartState {
   entries: { [code: string]: OrderEntry };
   refresh: boolean;
   cartMergeComplete: boolean;
-  appliedVouchers: any;
+  appliedVouchers: Voucher[];
 }

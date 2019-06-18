@@ -1,17 +1,21 @@
-import * as fromAction from './../actions';
-import { CartState } from '../cart-state';
 import { OrderEntry } from '../../../model/order.model';
+import { CartState } from '../cart-state';
+import * as fromAction from './../actions';
 
 export const initialState: CartState = {
   content: {},
   entries: {},
   refresh: false,
   cartMergeComplete: false,
+  appliedVouchers: {},
 };
 
 export function reducer(
   state = initialState,
-  action: fromAction.CartAction | fromAction.CartEntryAction
+  action:
+    | fromAction.CartAction
+    | fromAction.CartEntryAction
+    | fromAction.CartVoucherAction
 ): CartState {
   switch (action.type) {
     case fromAction.MERGE_CART: {
@@ -66,6 +70,8 @@ export function reducer(
       };
     }
 
+    case fromAction.ADD_CART_VOUCHER_SUCCESS:
+    case fromAction.REMOVE_CART_VOUCHER_SUCCESS:
     case fromAction.REMOVE_ENTRY_SUCCESS:
     case fromAction.UPDATE_ENTRY_SUCCESS:
     case fromAction.ADD_ENTRY_SUCCESS: {

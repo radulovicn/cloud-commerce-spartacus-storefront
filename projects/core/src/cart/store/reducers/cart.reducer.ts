@@ -36,6 +36,7 @@ export function reducer(
     case fromAction.LOAD_CART_SUCCESS:
     case fromAction.CREATE_CART_SUCCESS: {
       const content = { ...action.payload };
+      const appliedVouchers = { ...action.payload.appliedVouchers };
       let entries = {};
       if (content.entries) {
         entries = content.entries.reduce(
@@ -67,6 +68,7 @@ export function reducer(
         content,
         entries,
         refresh: false,
+        appliedVouchers
       };
     }
 

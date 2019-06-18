@@ -1,6 +1,6 @@
 import { CartEntryEffects } from './cart-entry.effect';
-import { CartEffects } from './cart.effect';
 import { CartVoucherEffects } from './cart-voucher.effect';
+import { CartEffects } from './cart.effect';
 
 export const effects: any[] = [CartEffects, CartEntryEffects, CartVoucherEffects];
 

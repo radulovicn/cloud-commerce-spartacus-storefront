@@ -208,11 +208,11 @@ export class CartService {
   }
 
   getAppliedVouchers(): Observable<Voucher[]> {
-    console.log("getAppliedVouchers");
-    this.store.pipe(
-      select(fromSelector.getVouchers),
-      tap(vouchersState => console.log(JSON.stringify(vouchersState)))
-    );
+    // console.log("getAppliedVouchers");
+    // this.store.pipe(
+    //   select(fromSelector.getVouchers),
+    //   tap(vouchersState => console.log(JSON.stringify(vouchersState)))
+    // );
 
     return this.store.pipe(select(fromSelector.getVouchers));
   }

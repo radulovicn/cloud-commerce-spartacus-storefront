@@ -106,7 +106,15 @@ export const getEntries: MemoizedSelector<any, OrderEntry[]> = createSelector(
   }
 );
 
-export const getVouchers: MemoizedSelector<any, Voucher[]> = createSelector(
+// export const getVouchers: MemoizedSelector<any, Voucher[]> = createSelector(
+//   getCartState,
+//   getVouchersSelector
+// );
+
+export const getVouchers: MemoizedSelector<
+  StateWithCart,
+  Voucher[]
+> = createSelector(
   getCartState,
   getVouchersSelector
 );

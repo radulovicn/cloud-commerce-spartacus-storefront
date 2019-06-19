@@ -28,4 +28,8 @@ export const cart = {
     item: '{{count}} item currently in your cart',
     item_plural: '{{count}} items currently in your cart',
   },
+  voucher:{
+    applyVoucherSuccess: '{{voucherCode}} has been applied.',
+    removeVoucherSuccess:'{{voucherCode}} has been removed.'
+  }
 };

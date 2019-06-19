@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { GlobalMessageType } from 'projects/core/src/global-message/models/global-message.model';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-//import { GlobalMessageService } from '../../../global-message/facade/global-message.service';
-//import { Voucher } from '../../../model/cart.model';
+import { GlobalMessageService } from '../../../global-message/facade/global-message.service';
 import { CartVoucherConnector } from '../../connectors/voucher/cart-voucher.connector';
 import * as fromActions from './../actions/cart-voucher.action';
 
@@ -12,27 +12,8 @@ export class CartVoucherEffects {
   constructor(
     private actions$: Actions,
     private cartVoucherConnector: CartVoucherConnector,
-   // private cartService: CartService,
-   // private messageService: GlobalMessageService
+    private messageService: GlobalMessageService
   ) {}
-
-  // @Effect()
-  // loadCartVouchers$: Observable<
-  //   fromActions.CartVoucherAction
-  // > = this.actions$.pipe(
-  //   ofType(fromActions.LOAD_CART_VOUCHERS),
-  //   map((action: fromActions.LoadCartVouchers) => action.payload),
-  //   mergeMap(payload => {
-  //     return this.cartVoucherConnector
-  //       .loadAll(payload.userId, payload.cartId)
-  //       .pipe(
-  //         map((vouchers: Voucher[]) => {
-  //           return new fromActions.LoadCartVouchers(vouchers);
-  //         }),
-  //         catchError(error => of(new fromActions.LoadCartVouchersFail(error)))
-  //       );
-  //   })
-  // );
 
   @Effect()
   addCartVoucher$: Observable<
@@ -45,6 +26,13 @@ export class CartVoucherEffects {
         .add(payload.userId, payload.cartId, payload.voucherId)
         .pipe(
           map((data: any) => {
+            this.messageService.add(
+              {
+                key: 'voucher.applyVoucherSuccess',
+                params: { voucherCode: payload.voucherId },
+              },
+              GlobalMessageType.MSG_TYPE_CONFIRMATION
+            );
             return new fromActions.AddCartVoucherSuccess(data);
           }),
           catchError(error => of(new fromActions.AddCartVoucherFail(error)))
@@ -53,21 +41,27 @@ export class CartVoucherEffects {
   );
 
   @Effect()
-  deleteCartVoucher$: Observable<
+  removeCartVoucher$: Observable<
     fromActions.CartVoucherAction
   > = this.actions$.pipe(
     ofType(fromActions.REMOVE_CART_VOUCHER),
     map((action: fromActions.RemoveCartVoucher) => action.payload),
     mergeMap(payload => {
       return this.cartVoucherConnector
-        .delete(payload.userId, payload.cartId, payload.voucherId)
+        .remove(payload.userId, payload.cartId, payload.voucherId)
         .pipe(
-          map((data: any) => {
-            return new fromActions.RemoveCartVoucherSuccess(data);
+          map(() => {
+            this.messageService.add(
+              {
+                key: 'voucher.RemoveVoucherSuccess',
+                params: { voucherCode: payload.voucherId },
+              },
+              GlobalMessageType.MSG_TYPE_CONFIRMATION
+            );
+            return new fromActions.RemoveCartVoucherSuccess();
           }),
           catchError(error => of(new fromActions.RemoveCartVoucherFail(error)))
         );
     })
   );
-
 }

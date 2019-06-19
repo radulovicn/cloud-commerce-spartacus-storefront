@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Voucher } from '../../../model/cart.model';
 import { CartVoucherAdapter } from './cart-voucher.adapter';
 
 @Injectable({
@@ -8,10 +7,6 @@ import { CartVoucherAdapter } from './cart-voucher.adapter';
 })
 export class CartVoucherConnector {
   constructor(protected adapter: CartVoucherAdapter) {}
-
-  public loadAll(userId: string, cartId: string): Observable<Voucher[]> {
-    return this.adapter.loadAll(userId, cartId);
-  }
 
   public add(
     userId: string,
@@ -21,11 +16,11 @@ export class CartVoucherConnector {
     return this.adapter.add(userId, cartId, voucherId);
   }
 
-  public delete(
+  public remove(
     userId: string,
     cartId: string,
     voucherId: string
   ): Observable<{}> {
-    return this.adapter.delete(userId, cartId, voucherId);
+    return this.adapter.remove(userId, cartId, voucherId);
   }
 }

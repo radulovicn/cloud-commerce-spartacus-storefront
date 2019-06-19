@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { AuthService, UserToken } from '../../auth/index';
 import { Cart, Voucher } from '../../model/cart.model';
 import { OrderEntry } from '../../model/order.model';
@@ -25,10 +25,6 @@ export class CartService {
   }
 
   getActive(): Observable<Cart> {
-    this.store.pipe(
-      select(fromSelector.getCartContent),
-      tap(cartContent => console.log(JSON.stringify(cartContent)))
-    );
     return this.store.pipe(select(fromSelector.getCartContent));
   }
 
@@ -208,14 +204,6 @@ export class CartService {
   }
 
   getAppliedVouchers(): Observable<Voucher[]> {
-    // console.log("getAppliedVouchers");
-    // this.store.pipe(
-    //   select(fromSelector.getVouchers),
-    //   tap(vouchersState => console.log(JSON.stringify(vouchersState)))
-    // );
-    // this.store.pipe(select(fromSelector.getVouchers)).subscribe(a => {
-    //   console.log(a);
-    // });
     return this.store.pipe(select(fromSelector.getVouchers));
   }
 

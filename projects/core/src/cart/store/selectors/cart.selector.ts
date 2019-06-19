@@ -1,22 +1,9 @@
-import {
-  createFeatureSelector,
-  createSelector,
-  MemoizedSelector,
-} from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { Cart, Voucher } from '../../../model/cart.model';
 import { OrderEntry } from '../../../model/order.model';
 import { LoaderState } from '../../../state/utils/loader/loader-state';
-import {
-  loaderLoadingSelector,
-  loaderSuccessSelector,
-  loaderValueSelector,
-} from '../../../state/utils/loader/loader.selectors';
-import {
-  CartsState,
-  CartState,
-  CART_FEATURE,
-  StateWithCart,
-} from '../cart-state';
+import { loaderLoadingSelector, loaderSuccessSelector, loaderValueSelector } from '../../../state/utils/loader/loader.selectors';
+import { CartsState, CartState, CART_FEATURE, StateWithCart } from '../cart-state';
 
 export const getCartContentSelector = (state: CartState) => state.content;
 export const getRefreshSelector = (state: CartState) => state.refresh;
@@ -105,11 +92,6 @@ export const getEntries: MemoizedSelector<any, OrderEntry[]> = createSelector(
     return Object.keys(entities).map(code => entities[code]);
   }
 );
-
-// export const getVouchers: MemoizedSelector<any, Voucher[]> = createSelector(
-//   getCartState,
-//   getVouchersSelector
-// );
 
 export const getVouchers: MemoizedSelector<
   StateWithCart,

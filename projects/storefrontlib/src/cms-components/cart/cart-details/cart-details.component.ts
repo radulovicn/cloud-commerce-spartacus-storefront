@@ -13,8 +13,6 @@ export class CartDetailsComponent implements OnInit {
   entries$: Observable<OrderEntry[]>;
   cartLoaded$: Observable<boolean>;
 
-  // vouchers$: Observable<Voucher[]>;
-
   constructor(protected cartService: CartService) {}
 
   ngOnInit() {
@@ -23,8 +21,6 @@ export class CartDetailsComponent implements OnInit {
       .getEntries()
       .pipe(filter(entries => entries.length > 0));
     this.cartLoaded$ = this.cartService.getLoaded();
-
-    this.cartService.getAppliedVouchers().subscribe(vouchers=>vouchers.forEach(voucher=>console.log(JSON.stringify(voucher))));
   }
 
   getAllPromotionsForCart(cart: Cart): Cart[] {

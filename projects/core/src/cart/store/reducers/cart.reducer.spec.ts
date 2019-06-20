@@ -2,7 +2,7 @@ import { Cart } from '../../../model/cart.model';
 import * as fromActions from './../actions';
 import * as fromCart from './cart.reducer';
 
-fdescribe('Cart reducer', () => {
+describe('Cart reducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
       const { initialState } = fromCart;

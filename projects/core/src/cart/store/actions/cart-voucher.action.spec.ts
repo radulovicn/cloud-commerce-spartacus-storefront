@@ -6,7 +6,7 @@ const userId = 'xxx@xxx.xxx';
 const cartId = 'testCartId';
 const voucherId = 'testVoucherId';
 
-fdescribe('Cart-voucher Actions', () => {
+describe('Cart-voucher Actions', () => {
   describe('AddCartVoucher Actions', () => {
     describe('AddVoucher', () => {
       it('should create the action', () => {

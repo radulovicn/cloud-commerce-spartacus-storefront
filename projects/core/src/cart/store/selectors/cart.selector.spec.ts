@@ -9,7 +9,7 @@ import * as fromSelectors from './../selectors';
 
 
 
-fdescribe('Cart selectors', () => {
+describe('Cart selectors', () => {
   let store: Store<StateWithCart>;
 
   const testCart: Cart = {

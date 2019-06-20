@@ -31,7 +31,7 @@ export class OccCartVoucherAdapter implements CartVoucherAdapter {
       fromString: 'voucherId=' + voucherId,
     });
 
-    return this.http.post(url, toAdd, { headers,params }).pipe(
+    return this.http.post(url, toAdd, { headers, params }).pipe(
       catchError((error: any) => throwError(error.json())),
       this.converter.pipeable(CART_VOUCHER_NORMALIZER)
     );

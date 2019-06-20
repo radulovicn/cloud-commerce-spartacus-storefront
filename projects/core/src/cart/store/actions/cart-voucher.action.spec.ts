@@ -1,4 +1,8 @@
-import { failMeta, loadMeta, successMeta } from '../../../state/utils/loader/loader.action';
+import {
+  failMeta,
+  loadMeta,
+  successMeta,
+} from '../../../state/utils/loader/loader.action';
 import { CART_DATA } from '../cart-state';
 import * as fromCartVoucher from './cart-voucher.action';
 

@@ -7,8 +7,6 @@ import * as fromActions from './../actions';
 import * as fromReducers from './../reducers';
 import * as fromSelectors from './../selectors';
 
-
-
 describe('Cart selectors', () => {
   let store: Store<StateWithCart>;
 
@@ -25,7 +23,7 @@ describe('Cart selectors', () => {
       currencyIso: 'USD',
       value: 0,
     },
-    appliedVouchers:[{code:'testVoucherId'}],
+    appliedVouchers: [{ code: 'testVoucherId' }],
   };
 
   const testEmptyCart: Cart = {
@@ -163,7 +161,7 @@ describe('Cart selectors', () => {
       expect(result).toEqual([]);
 
       store.dispatch(new fromActions.LoadCartSuccess(testCart));
-      expect(result).toEqual([{code:'testVoucherId'}]);
+      expect(result).toEqual([{ code: 'testVoucherId' }]);
     });
   });
 });

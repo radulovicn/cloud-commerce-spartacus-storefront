@@ -24,11 +24,14 @@ export class OccCartVoucherAdapter implements CartVoucherAdapter {
     const url = this.getCartVoucherEndpoint(userId, cartId);
 
     const toAdd = JSON.stringify({});
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    });
     const params = new HttpParams({
       fromString: 'voucherId=' + voucherId,
     });
 
-    return this.http.post(url, toAdd, { params }).pipe(
+    return this.http.post(url, toAdd, { headers,params }).pipe(
       catchError((error: any) => throwError(error.json())),
       this.converter.pipeable(CART_VOUCHER_NORMALIZER)
     );

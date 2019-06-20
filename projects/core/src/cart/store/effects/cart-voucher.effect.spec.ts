@@ -24,7 +24,7 @@ class MockGlobalMessageService {
   add = createSpy();
 }
 
-fdescribe('Cart effect', () => {
+describe('Cart effect', () => {
   let voucherEffects: fromEffects.CartVoucherEffects;
   let actions$: Observable<any>;
   let cartVoucherConnector: CartVoucherConnector;

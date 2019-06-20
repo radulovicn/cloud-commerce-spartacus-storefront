@@ -1,7 +1,4 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { CART_VOUCHER_NORMALIZER } from '../../../cart/connectors/voucher/converters';
 import { Cart } from '../../../model/cart.model';
@@ -32,7 +29,7 @@ const MockOccModuleConfig: OccConfig = {
   },
 };
 
-fdescribe('OccCartVoucherAdapter', () => {
+describe('OccCartVoucherAdapter', () => {
   let service: OccCartVoucherAdapter;
   let httpMock: HttpTestingController;
   let converter: ConverterService;
@@ -70,10 +67,13 @@ fdescribe('OccCartVoucherAdapter', () => {
         );
       });
 
+      expect(mockReq.request.headers.get('Content-Type')).toEqual(
+        'application/x-www-form-urlencoded'
+      );
       expect(mockReq.request.params.get('voucherId')).toEqual(voucherId);
       expect(mockReq.cancelled).toBeFalsy();
-      //mockReq.flush(cartData);
-      //expect(result).toEqual(cartData);
+      mockReq.flush(cartData);
+      expect(result).toEqual(cartData);
       expect(converter.pipeable).toHaveBeenCalledWith(CART_VOUCHER_NORMALIZER);
     });
   });
@@ -89,12 +89,7 @@ fdescribe('OccCartVoucherAdapter', () => {
         return (
           req.method === 'DELETE' &&
           req.url ===
-            usersEndpoint +
-              `/${userId}` +
-              cartsEndpoint +
-              cartId +
-              '/vouchers' 
- 
+            usersEndpoint + `/${userId}` + cartsEndpoint + cartId + '/vouchers/'+voucherId
         );
       });
 

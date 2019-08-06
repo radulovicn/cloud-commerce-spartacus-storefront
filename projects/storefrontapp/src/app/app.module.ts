@@ -10,9 +10,11 @@ import {
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { translationChunksConfig, translations } from '@spartacus/assets';
 import {
+  AsmModule,
   B2cStorefrontModule,
   StorefrontComponent,
 } from '@spartacus/storefront';
+import { AsmComponentComponent } from 'projects/storefrontlib/src/asm/asm-component/asm-component.component';
 import { environment } from '../environments/environment';
 
 registerLocaleData(localeDe);
@@ -27,6 +29,7 @@ if (!environment.production) {
 
 @NgModule({
   imports: [
+    AsmModule,
     BrowserModule.withServerTransition({ appId: 'spartacus-app' }),
     BrowserTransferStateModule,
 
@@ -65,6 +68,6 @@ if (!environment.production) {
 
     ...devImports,
   ],
-  bootstrap: [StorefrontComponent],
+  bootstrap: [StorefrontComponent, AsmComponentComponent],
 })
 export class AppModule {}

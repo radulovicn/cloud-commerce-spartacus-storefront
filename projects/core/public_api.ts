@@ -1,6 +1,7 @@
 /*
  * Public API Surface of core
  */
+export * from './src/asm/asm.service';
 export * from './src/auth/index';
 export * from './src/cart/index';
 export * from './src/checkout/index';

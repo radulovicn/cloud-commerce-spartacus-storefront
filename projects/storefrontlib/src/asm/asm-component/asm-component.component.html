@@ -1,0 +1,47 @@
+ASM
+<ng-container>
+  <div
+    class="col-md-6"
+    *ngIf="(agent$ | async)?.access_token; else showLoginForm"
+  >
+    Agent Authenticated
+    <button
+      class="btn btn-block btn-secondary"
+      type="button"
+      (click)="logoutAgent()"
+    >
+      Sign out
+    </button>
+  </div>
+  <ng-template #showLoginForm>
+    <div class="col-md-6">
+      <form (submit)="loginAgent()" [formGroup]="loginForm">
+        <div class="form-group">
+          <label>
+            <span class="label-content">Username</span>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="userId"
+              placeholder="username"
+            />
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <span class="label-content">password</span>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="***"
+              formControlName="password"
+            />
+          </label>
+        </div>
+        <button type="submit" class="btn btn-block btn-primary">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </ng-template>
+</ng-container>

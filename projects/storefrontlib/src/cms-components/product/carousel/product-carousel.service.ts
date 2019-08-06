@@ -67,6 +67,15 @@ export class ProductCarouselService {
         format: 'product',
       };
     }
+
+    console.log('source', source);
+    console.log(
+      'fneiofmeoimoifwmfiowfmom test',
+      this.semanticPathService.transform({
+        cxRoute: 'product',
+        params: source,
+      })
+    );
     item.route = this.semanticPathService.transform({
       cxRoute: 'product',
       params: source,

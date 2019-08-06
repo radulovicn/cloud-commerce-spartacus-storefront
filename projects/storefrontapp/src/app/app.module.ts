@@ -9,6 +9,8 @@ import {
 } from '@angular/platform-browser';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { translationChunksConfig, translations } from '@spartacus/assets';
+import { CdsConfig, CdsModule } from '@spartacus/cds';
+import { ConfigModule } from '@spartacus/core';
 import {
   B2cStorefrontModule,
   StorefrontComponent,
@@ -60,6 +62,18 @@ if (!environment.production) {
         resources: translations,
         chunks: translationChunksConfig,
         fallbackLang: 'en',
+      },
+    }),
+
+    CdsModule,
+    ConfigModule.withConfig(<CdsConfig>{
+      cds: {
+        baseUrl: 'https://argotest.api.stage.context.cloud.sap',
+        tenantId: 'argotest',
+        allowInsecureCookies: true,
+        clientId: 'spartacus-client',
+        profileTagTrackUrl:
+          'https://tag.static.stage.context.cloud.sap/config/1853f700-b475-11e9-b5fc-27eaad892fa6',
       },
     }),
 

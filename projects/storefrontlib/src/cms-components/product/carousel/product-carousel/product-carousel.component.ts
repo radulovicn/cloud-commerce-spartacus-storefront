@@ -32,7 +32,14 @@ export class ProductCarouselComponent {
    */
   items$: Observable<Observable<Product>[]> = this.componentData$.pipe(
     map(data => data.productCodes.trim().split(' ')),
-    map(codes => codes.map(code => this.productService.get(code)))
+    map(codes =>
+      codes.map(code => {
+        this.productService.get(code).subscribe(test => {
+          console.log('brian', test);
+        });
+        return this.productService.get(code);
+      })
+    )
   );
 
   constructor(

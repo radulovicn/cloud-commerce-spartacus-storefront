@@ -13,6 +13,7 @@ export class AsmComponentComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   sessionForm: FormGroup;
   agent$: Observable<UserToken>;
+  customer$: Observable<string>;
   constructor(private fb: FormBuilder, private asmService: AsmService) {}
 
   ngOnInit() {
@@ -24,6 +25,7 @@ export class AsmComponentComponent implements OnInit, OnDestroy {
       customerId: ['', [Validators.required]],
     });
     this.agent$ = this.asmService.getActiveAgent();
+    this.customer$ = this.asmService.getActiveCustomer();
   }
 
   loginAgent(): void {
@@ -51,12 +53,13 @@ export class AsmComponentComponent implements OnInit, OnDestroy {
       this.sessionForm.controls.customerId.value
     );
     this.asmService.startCustomerSession(
-      this.sessionForm.controls.customerId.value
+      '2fb14d2c-f1f9-4583-b7e8-8f8f42203a35'
     );
   }
 
   endCustomerSession(): void {
     console.log('endCustomerSession');
+    this.asmService.endCustomerSession();
   }
 
   ngOnDestroy() {

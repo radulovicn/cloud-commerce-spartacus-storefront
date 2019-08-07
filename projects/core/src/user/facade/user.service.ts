@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AsmService } from '../../asm/asm.service';
 import { Title, User, UserSignUp } from '../../model/misc.model';
 import { USERID_CURRENT } from '../../occ/utils/occ-constants';
 import { StateWithProcess } from '../../process/store/process-state';
@@ -22,7 +23,10 @@ import {
 
 @Injectable()
 export class UserService {
-  constructor(protected store: Store<StateWithUser | StateWithProcess<void>>) {}
+  constructor(
+    protected store: Store<StateWithUser | StateWithProcess<void>>,
+    protected asmService: AsmService
+  ) {}
 
   /**
    * Returns a user
@@ -31,7 +35,9 @@ export class UserService {
     return this.store.pipe(
       select(UsersSelectors.getDetails),
       tap(details => {
+        console.log('UserService.get()', details);
         if (Object.keys(details).length === 0) {
+          console.log('UserService.get() - LOADING');
           this.load();
         }
       })
@@ -42,7 +48,16 @@ export class UserService {
    * Loads the user's details
    */
   load(): void {
-    this.store.dispatch(new UserActions.LoadUserDetails(USERID_CURRENT));
+    this.asmService
+      .getActiveCustomer()
+      .subscribe(customerId => {
+        this.store.dispatch(
+          new UserActions.LoadUserDetails(
+            customerId ? customerId : USERID_CURRENT
+          )
+        );
+      })
+      .unsubscribe();
   }
 
   /**

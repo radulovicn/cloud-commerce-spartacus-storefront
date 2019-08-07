@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.auth.getUserToken().pipe(
       switchMap(token => {
+        console.log('LoginComponent.ngOnInit userotken', token);
         if (token && !!token.access_token) {
           return this.userService.get();
         } else {

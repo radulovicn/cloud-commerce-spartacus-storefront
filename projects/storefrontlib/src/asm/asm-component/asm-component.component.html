@@ -4,14 +4,32 @@ ASM
     class="col-md-6"
     *ngIf="(agent$ | async)?.access_token; else showLoginForm"
   >
-    Agent Authenticated
-    <button
-      class="btn btn-block btn-secondary"
-      type="button"
-      (click)="logoutAgent()"
-    >
-      Sign out
-    </button>
+    Agent Authenticated customer: {{ customer$ | async }}
+    <div class="col-md-6" *ngIf="(customer$ | async); else noCustomer">
+      <button
+        class="btn btn-block btn-secondary"
+        type="button"
+        (click)="endCustomerSession()"
+      >
+        End Customer Session
+      </button>
+    </div>
+    <ng-template #noCustomer>
+      <button
+        class="btn btn-block btn-secondary"
+        type="button"
+        (click)="startCustomerSession()"
+      >
+        Start Customer Session
+      </button>
+      <button
+        class="btn btn-block btn-secondary"
+        type="button"
+        (click)="logoutAgent()"
+      >
+        Sign Out Agent
+      </button>
+    </ng-template>
   </div>
   <ng-template #showLoginForm>
     <div class="col-md-6">

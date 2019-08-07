@@ -28,8 +28,7 @@ export class UserTokenInterceptor implements HttpInterceptor {
         if (
           token &&
           this.isOccUrl(request.url) &&
-          !request.headers.get('Authorization') &&
-          !request.url.includes('/pages')
+          !request.headers.get('Authorization')
         ) {
           request = request.clone({
             setHeaders: {

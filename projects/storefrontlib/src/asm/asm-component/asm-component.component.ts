@@ -6,7 +6,6 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'cx-asm',
   templateUrl: './asm-component.component.html',
-  styleUrls: ['./asm-component.component.css'],
 })
 export class AsmComponentComponent implements OnInit, OnDestroy {
   sub: Subscription;

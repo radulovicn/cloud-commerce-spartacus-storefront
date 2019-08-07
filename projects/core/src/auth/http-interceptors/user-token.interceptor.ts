@@ -24,7 +24,6 @@ export class UserTokenInterceptor implements HttpInterceptor {
     return this.authService.getUserToken().pipe(
       take(1),
       switchMap(token => {
-        console.log('UserTokenInterceptor url', request.url);
         if (
           token &&
           this.isOccUrl(request.url) &&

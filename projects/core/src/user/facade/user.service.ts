@@ -137,12 +137,17 @@ export class UserService {
    * @param userDetails to be updated
    */
   updatePersonalDetails(userDetails: User): void {
-    this.store.dispatch(
-      new UserActions.UpdateUserDetails({
-        username: USERID_CURRENT,
-        userDetails,
+    this.asmService
+      .getActiveCustomer()
+      .subscribe(customerId => {
+        this.store.dispatch(
+          new UserActions.UpdateUserDetails({
+            username: customerId ? customerId : USERID_CURRENT,
+            userDetails,
+          })
+        );
       })
-    );
+      .unsubscribe();
   }
 
   /**

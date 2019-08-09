@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AsmService } from '../../asm/asm.service';
 import { Address, Country, Region } from '../../model/address.model';
 import { USERID_CURRENT } from '../../occ/utils/occ-constants';
 import { StateWithProcess } from '../../process/store/process-state';
@@ -13,13 +14,25 @@ import { StateWithUser } from '../store/user-state';
   providedIn: 'root',
 })
 export class UserAddressService {
-  constructor(protected store: Store<StateWithUser | StateWithProcess<void>>) {}
+  constructor(
+    protected store: Store<StateWithUser | StateWithProcess<void>>,
+    protected asmService: AsmService
+  ) {}
 
   /**
    * Retrieves user's addresses
    */
   loadAddresses(): void {
-    this.store.dispatch(new UserActions.LoadUserAddresses(USERID_CURRENT));
+    this.asmService
+      .getActiveCustomer()
+      .subscribe(customerId => {
+        this.store.dispatch(
+          new UserActions.LoadUserAddresses(
+            customerId ? customerId : USERID_CURRENT
+          )
+        );
+      })
+      .unsubscribe();
   }
 
   /**
